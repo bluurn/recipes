@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SelectedFeature } from './shared/selected-feature';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'recipes';
+  loadedFeature: SelectedFeature = 'recipe';
+  onNavigate(selectedFeature: SelectedFeature) { 
+    this.loadedFeature = selectedFeature;
+  }
 }
