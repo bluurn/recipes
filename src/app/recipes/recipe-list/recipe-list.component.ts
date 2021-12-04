@@ -1,31 +1,18 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Recipe } from '../recipe.model';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { RecipeService } from "src/app/services/recipe";
+import { Recipe } from "../recipe.model";
 
 @Component({
-  selector: 'app-recipe-list',
-  templateUrl: './recipe-list.component.html',
-  styleUrls: ['./recipe-list.component.css'],
+  selector: "app-recipe-list",
+  templateUrl: "./recipe-list.component.html",
+  styleUrls: ["./recipe-list.component.css"],
 })
 export class RecipeListComponent implements OnInit {
-  @Output() recipeWasSelected = new EventEmitter<Recipe>();
-  recipes: Recipe[] = [
-    new Recipe(
-      'Bang Bang Shrimp Pasta',
-      'This Bang Bang Shrimp Pasta has the most scrumptious, creamy sauce.',
-      'https://www.theidearoom.net/wp-content/uploads/2017/05/bang-bang-shrimp-pasta-recipe-theidearoom-1-1.jpg'
-    ),
-    new Recipe(
-      'Dum Aloo',
-      'Creamy, rich and spicy Dum Aloo recipe, golden fried baby potatoes cooked in a delicious gravy!',
-      'https://i0.wp.com/cookingfromheart.com/wp-content/uploads/2017/08/Dum-Aloo-5.jpg?w=1024&ssl=1'
-    ),
-  ];
+  recipes: Recipe[] = [];
 
-  constructor() {}
+  constructor(private recipeService: RecipeService) {}
 
-  ngOnInit(): void {}
-
-  onRecipeSelected(recipe: Recipe) {
-    this.recipeWasSelected.emit(recipe);
+  ngOnInit(): void {
+    this.recipes = this.recipeService.recipes;
   }
 }
