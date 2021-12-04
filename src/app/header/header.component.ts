@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { SelectedFeature } from '../shared/selected-feature';
+import { Component, EventEmitter, Output } from "@angular/core";
+import { SelectedFeature } from "../interfaces/selected-feature";
 
 @Component({
-  templateUrl: 'header.component.html',
-  selector: 'app-header',
+  templateUrl: "header.component.html",
+  selector: "app-header",
 })
 export class HeaderComponent {
   @Output() featureSelected = new EventEmitter<SelectedFeature>();
