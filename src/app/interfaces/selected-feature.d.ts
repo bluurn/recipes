@@ -1,1 +1,0 @@
-export type SelectedFeature = 'recipe' | 'shopping-list';
