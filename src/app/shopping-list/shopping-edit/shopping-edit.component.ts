@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { Ingredient } from "src/app/models/ingredient";
-import { ShoppingListService } from "src/app/services/shopping-list";
+import { ShoppingListService } from "src/app/services/shopping-list.service";
 
 @Component({
   selector: "app-shopping-edit",
