@@ -92,7 +92,13 @@
                 />
               </div>
               <div class="col-xs-1">
-                <button class="btn btn-danger">x</button>
+                <button
+                  type="button"
+                  (click)="onDeleteIngredient(i)"
+                  class="btn btn-danger"
+                >
+                  x
+                </button>
               </div>
             </div>
           </div>
