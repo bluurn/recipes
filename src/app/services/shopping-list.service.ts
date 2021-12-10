@@ -5,7 +5,7 @@ import { Ingredient } from "../models/ingredient";
 @Injectable({ providedIn: "root" })
 export class ShoppingListService {
   startedEditing = new Subject<number>();
-  _ingredients: Ingredient[] = [
+  private _ingredients: Ingredient[] = [
     new Ingredient("Apples", 5),
     new Ingredient("Tomatoes", 10),
   ];
@@ -16,7 +16,11 @@ export class ShoppingListService {
   }
 
   getIngredient(index: number) {
-    return this.ingredients[index];
+    return this._ingredients[index];
+  }
+
+  updateIngredient(index: number, newIngredient: Ingredient) {
+    this._ingredients[index] = newIngredient;
   }
 
   add(...ingredients: Ingredient[]) {
