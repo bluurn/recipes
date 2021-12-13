@@ -17,6 +17,10 @@ export class AuthService {
   user = new BehaviorSubject<User>(null);
   constructor(private http: HttpClient) {}
 
+  logout() {
+    this.user.next(null);
+  }
+
   login(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
