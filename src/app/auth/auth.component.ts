@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { AuthResponseData, AuthService } from "./auth.service";
 
@@ -18,7 +19,7 @@ export class AuthComponent implements OnInit {
     return !this.isLoginMode;
   }
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
   ngOnInit(): void {
     this.initForm();
   }
@@ -42,8 +43,8 @@ export class AuthComponent implements OnInit {
     }
     authObservable.subscribe({
       next: (data) => {
-        console.log("next: ", data);
         this.isLoading = false;
+        this.router.navigate(["/recipes"]);
       },
       error: (errorMessage) => {
         console.log("error: ", errorMessage);

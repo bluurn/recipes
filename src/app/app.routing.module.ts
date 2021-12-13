@@ -17,7 +17,6 @@ const appRoutes: Routes = [
       {
         path: "",
         component: RecipeStartComponent,
-        resolve: [RecipesResolverService],
       },
       {
         path: "new",
