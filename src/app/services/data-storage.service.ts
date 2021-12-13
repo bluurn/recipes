@@ -21,18 +21,14 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    this.http
-      .get<Recipe[]>(this.URL_BASE + "/recipes.json")
-      .pipe(
-        map((recipes) =>
-          recipes.map((recipe) => ({
-            ...recipe,
-            ingredients: recipe.ingredients ? recipe.ingredients : [],
-          }))
-        )
-      )
-      .subscribe((recipes) => {
-        this.recipesService.setRecipes(recipes);
-      });
+    return this.http.get<Recipe[]>(this.URL_BASE + "/recipes.json").pipe(
+      map((recipes) =>
+        recipes.map((recipe) => ({
+          ...recipe,
+          ingredients: recipe.ingredients ? recipe.ingredients : [],
+        }))
+      ),
+      tap((recipes) => this.recipesService.setRecipes(recipes))
+    );
   }
 }
