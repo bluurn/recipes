@@ -10,8 +10,12 @@
         <input type="password" id="password" class="form-control" />
       </div>
       <div class="btn-toolbar">
-        <button class="btn btn-primary">Sign Up</button>
-        <button class="btn btn-primary">Switch to Login</button>
+        <button class="btn btn-primary" type="submit">
+          {{ this.isLoginMode ? "Log in" : "Sign Up" }}
+        </button>
+        <button class="btn btn-success" (click)="onSwitchMode()" type="button">
+          Switch to {{ this.isLoginMode ? "Sign Up" : "Log in" }}
+        </button>
       </div>
     </form>
   </div>
