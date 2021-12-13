@@ -8,10 +8,10 @@ import { DataStorageService } from "../services/data-storage.service";
 export class HeaderComponent {
   constructor(private dataStorageService: DataStorageService) {}
   onSaveData() {
-    this.dataStorageService.storeRecipes().subscribe();
+    this.dataStorageService.storeRecipes();
   }
 
   onFetchData() {
-    this.dataStorageService.fetchRecipes().subscribe();
+    this.dataStorageService.fetchRecipes();
   }
 }
