@@ -6,9 +6,12 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
   templateUrl: "./auth.component.html",
 })
 export class AuthComponent implements OnInit {
+  authForm: FormGroup;
   isLoginMode = true;
 
-  authForm: FormGroup;
+  get isSignupMode() {
+    return !this.isLoginMode;
+  }
 
   ngOnInit(): void {
     this.initForm();
