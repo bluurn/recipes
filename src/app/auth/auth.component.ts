@@ -10,6 +10,9 @@ export class AuthComponent implements OnInit {
   authForm: FormGroup;
   isLoginMode = true;
 
+  isLoading = false;
+
+  error: string = null;
   get isSignupMode() {
     return !this.isLoginMode;
   }
@@ -24,6 +27,7 @@ export class AuthComponent implements OnInit {
 
   onSubmit() {
     if (!this.authForm.valid) return;
+    this.isLoading = true;
 
     const email = this.authForm.value.email;
     const password = this.authForm.value.password;
@@ -32,9 +36,11 @@ export class AuthComponent implements OnInit {
       this.authService.signup(email, password).subscribe(
         (data) => {
           console.log(data);
+          this.isLoading = false;
         },
         (error) => {
-          console.log(error);
+          this.error = "An error occurred!";
+          this.isLoading = false;
         }
       );
     } else {

@@ -18,12 +18,14 @@ import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
 import { RecipeService } from "./services/recipe.service";
 import { ShoppingListService } from "./services/shopping-list.service";
 import { AuthComponent } from "./auth/auth.component";
+import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     HeaderComponent,
+    LoadingSpinnerComponent,
     RecipesComponent,
     RecipeEditComponent,
     RecipeStartComponent,
