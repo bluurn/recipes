@@ -17,10 +17,12 @@ import { ShoppingEditComponent } from "./shopping-list/shopping-edit/shopping-ed
 import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
 import { RecipeService } from "./services/recipe.service";
 import { ShoppingListService } from "./services/shopping-list.service";
+import { AuthComponent } from "./auth/auth.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    AuthComponent,
     HeaderComponent,
     RecipesComponent,
     RecipeEditComponent,
