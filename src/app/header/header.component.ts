@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { AuthService } from "../auth/auth.service";
-import { DataStorageService } from "../services/data-storage.service";
+import { DataStorageService } from "../shared/data-storage.service";
 
 @Component({
   templateUrl: "header.component.html",

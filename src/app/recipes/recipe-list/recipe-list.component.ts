@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
-import { RecipeService } from "src/app/services/recipe.service";
+import { RecipeService } from "src/app/recipes/recipe.service";
 import { Recipe } from "../recipe.model";
 
 @Component({
