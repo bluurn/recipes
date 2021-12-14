@@ -6,7 +6,7 @@ import { AuthComponent } from "./auth.component";
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule.forChild([{ path: "auth", component: AuthComponent }]),
+    RouterModule.forChild([{ path: "", component: AuthComponent }]),
   ],
   declarations: [AuthComponent],
 })
