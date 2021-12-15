@@ -1,29 +1,32 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { RecipeService } from "src/app/recipes/recipe.service";
 import { Recipe } from "../recipe.model";
 import * as fromApp from "../../store/app.reducer";
+import * as RecipesActions from "../store/recipe.actions";
 import { Store } from "@ngrx/store";
-import { map } from "rxjs";
+import { map, Subscription } from "rxjs";
 
 @Component({
   selector: "app-recipes",
   templateUrl: "./recipe-edit.component.html",
   styleUrls: ["./recipe-edit.component.css"],
 })
-export class RecipeEditComponent implements OnInit {
+export class RecipeEditComponent implements OnInit, OnDestroy {
   id: number;
   editMode = false;
 
   recipeForm: FormGroup;
+  private storeSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService,
     private router: Router,
     private store: Store<fromApp.AppState>
   ) {}
+  ngOnDestroy(): void {
+    if (this.storeSub) this.storeSub.unsubscribe();
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -41,9 +44,11 @@ export class RecipeEditComponent implements OnInit {
       this.recipeForm.value["ingredients"]
     );
     if (this.editMode) {
-      this.recipeService.updateRecipe(this.id, newRecipe);
+      this.store.dispatch(
+        new RecipesActions.UpdateRecipe({ index: this.id, newRecipe })
+      );
     } else {
-      this.recipeService.addRecipe(newRecipe);
+      this.store.dispatch(new RecipesActions.AddRecipe(newRecipe));
     }
     this.router.navigate([".."], { relativeTo: this.route });
   }
@@ -73,8 +78,7 @@ export class RecipeEditComponent implements OnInit {
     let recipeIngredients = new FormArray([]);
 
     if (this.editMode) {
-      // const recipe = this.recipeService.getRecipe(this.id);
-      this.store
+      this.storeSub = this.store
         .select("recipes")
         .pipe(
           map((recipeState) => {

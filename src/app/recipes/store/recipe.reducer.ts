@@ -20,6 +20,27 @@ export function recipeReducer(
         ...state,
         recipes: [...action.payload],
       };
+    case RecipesActions.ADD_RECIPE:
+      return {
+        ...state,
+        recipes: [...state.recipes, action.payload],
+      };
+    case RecipesActions.UPDATE_RECIPE:
+      return {
+        ...state,
+        recipes: [
+          ...state.recipes.map((recipe, index) =>
+            index === action.payload.index ? action.payload.newRecipe : recipe
+          ),
+        ],
+      };
+    case RecipesActions.DELETE_RECIPE:
+      return {
+        ...state,
+        recipes: [
+          ...state.recipes.filter((_recipe, index) => index !== action.payload),
+        ],
+      };
     default:
       return state;
   }
