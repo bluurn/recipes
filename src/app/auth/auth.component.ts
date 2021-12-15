@@ -1,32 +1,32 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Observable } from "rxjs";
-import { AuthResponseData, AuthService } from "./auth.service";
 import { Store } from "@ngrx/store";
 import * as fromApp from "../store/app.reducer";
 import * as AuthActions from "../auth/store/auth.actions";
+import { Subscription } from "rxjs";
+import { ShoppingEditComponent } from "../shopping-list/shopping-edit/shopping-edit.component";
 
 @Component({
   selector: "app-auth",
   templateUrl: "./auth.component.html",
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
+  storeSub: Subscription;
   authForm: FormGroup;
   isLoginMode = true;
-
   isLoading = false;
-
   error: string = null;
+
   get isSignupMode() {
     return !this.isLoginMode;
   }
 
-  constructor(
-    private authService: AuthService,
-    private store: Store<fromApp.AppState>
-  ) {}
+  constructor(private store: Store<fromApp.AppState>) {}
+  ngOnDestroy(): void {
+    if (this.storeSub) this.storeSub.unsubscribe();
+  }
   ngOnInit(): void {
-    this.store.select("auth").subscribe((authState) => {
+    this.storeSub = this.store.select("auth").subscribe((authState) => {
       this.isLoading = authState.loading;
       this.error = authState.authError;
     });
@@ -51,7 +51,7 @@ export class AuthComponent implements OnInit {
   }
 
   onHandleError() {
-    this.error = null;
+    this.store.dispatch(new AuthActions.ClearError());
   }
   private initForm() {
     this.authForm = new FormGroup({
