@@ -18,7 +18,6 @@ export interface AuthResponseData {
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
-  user = new BehaviorSubject<User>(null);
   logoutTimer: ReturnType<typeof setTimeout>;
   constructor(
     private http: HttpClient,
