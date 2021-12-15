@@ -4,7 +4,6 @@ import { Store } from "@ngrx/store";
 import * as fromApp from "../store/app.reducer";
 import * as AuthActions from "../auth/store/auth.actions";
 import { Subscription } from "rxjs";
-import { ShoppingEditComponent } from "../shopping-list/shopping-edit/shopping-edit.component";
 
 @Component({
   selector: "app-auth",
