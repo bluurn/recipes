@@ -12,7 +12,7 @@ import { Subscription } from "rxjs";
 import { Ingredient } from "src/app/recipes/ingredient.model";
 
 import * as ShoppingListActions from "../store/shopping-list.actions";
-import * as fromShoppingList from "src/app/shopping-list/store/shopping-list.reducer";
+import * as fromApp from "../../store/app.reducer";
 @Component({
   selector: "app-shopping-edit",
   templateUrl: "./shopping-edit.component.html",
@@ -26,7 +26,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   @ViewChild("f") shoppingListForm: NgForm;
   @Output() ingredientAdded = new EventEmitter<Ingredient>();
 
-  constructor(private store: Store<fromShoppingList.AppState>) {}
+  constructor(private store: Store<fromApp.AppState>) {}
   ngOnInit(): void {
     this.subscription = this.store
       .select("shoppingList")
