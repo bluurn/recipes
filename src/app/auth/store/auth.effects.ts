@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, Effect, ofType } from "@ngrx/effects";
@@ -69,12 +69,14 @@ export class AuthEffects {
     switchMap((authData: AuthActions.SignupStart) => {
       return this.http
         .post<AuthResponseData>(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" +
-            environment.firebaseApiKey,
+          environment.authURL + "/accounts:signUp",
           {
             email: authData.payload.email,
             password: authData.payload.password,
             returnSecureToken: true,
+          },
+          {
+            params: new HttpParams().set("key", environment.firebaseApiKey),
           }
         )
         .pipe(
@@ -93,12 +95,14 @@ export class AuthEffects {
     switchMap((authData: AuthActions.LoginStart) => {
       return this.http
         .post<AuthResponseData>(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" +
-            environment.firebaseApiKey,
+          environment.authURL + "/accounts:signInWithPassword",
           {
             email: authData.payload.email,
             password: authData.payload.password,
             returnSecureToken: true,
+          },
+          {
+            params: new HttpParams().set("key", environment.firebaseApiKey),
           }
         )
         .pipe(

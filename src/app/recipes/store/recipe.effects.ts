@@ -6,6 +6,7 @@ import { Recipe } from "../recipe.model";
 import * as RecipesActions from "./recipe.actions";
 import * as fromApp from "../../store/app.reducer";
 import { Store } from "@ngrx/store";
+import { environment } from "src/environments/environment";
 
 @Injectable()
 export class RecipeEffects {
@@ -13,9 +14,7 @@ export class RecipeEffects {
   fetchRecipes = this.actions$.pipe(
     ofType(RecipesActions.FETCH_RECIPES),
     switchMap(() => {
-      return this.http.get<Recipe[]>(
-        "https://recipe-book-6a4d2-default-rtdb.europe-west1.firebasedatabase.app/recipes.json"
-      );
+      return this.http.get<Recipe[]>(environment.apiURL + "/recipes.json");
     }),
     map((recipes) =>
       recipes.map((recipe) => ({
@@ -32,7 +31,7 @@ export class RecipeEffects {
     withLatestFrom(this.store.select("recipes")),
     switchMap(([, recipesState]) => {
       return this.http.put<Recipe[]>(
-        "https://recipe-book-6a4d2-default-rtdb.europe-west1.firebasedatabase.app/recipes.json",
+        environment.apiURL + "/recipes.json",
         recipesState.recipes
       );
     })
